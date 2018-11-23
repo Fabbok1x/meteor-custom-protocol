@@ -45,10 +45,14 @@ CustomProtocolCommon = class CustomProtocolCommon {
      * @param {string} name    - Class name of the protocol.
      * @param {Object} options - An object with the protocol config.
      */
-    registerProtocol(name, options = {}, CustomProtocolsIndex) {
-        if (!CustomProtocolsIndex[name]) {
+    registerProtocol(name, options = {}, _CustomProtocolsIndex) {
+        if(CustomProtocolsIndex.length == 0) {
+            CustomProtocolsIndex = _CustomProtocolsIndex;
+        } else {
+            if (!CustomProtocolsIndex[name]) {
             throw new Error(`Protocol ${name} did not receive unique id. Check if the file name is `
                 + 'in format `<name>.protocol.js` so that the indexer can assign an id to it.');
+            }
         }
         this._id = CustomProtocolsIndex[name].id;
 
